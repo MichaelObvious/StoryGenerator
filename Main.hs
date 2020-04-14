@@ -51,8 +51,9 @@ not_null (Parser p) = Parser $ \input -> do
     if null xs then Nothing else Just (input', xs)
 
 quote_tag :: Parser ParsedValue
-quote_tag = f <$> (string_parser "noun" <|> string_parser "adjective" <|> string_parser "verb")
-    where f "noun"      = Noun
+quote_tag = char_parser '@' *> (f <$> stringliteral) <* char_parser '@'
+    where stringliteral = (string_parser "noun" <|> string_parser "adjective" <|> string_parser "verb")
+          f "noun"      = Noun
           f "adjective" = Adjective
           f "verb"      = Verb
           -- should never happen
