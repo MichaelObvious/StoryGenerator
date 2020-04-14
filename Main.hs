@@ -50,6 +50,9 @@ not_null (Parser p) = Parser $ \input -> do
     (input', xs) <- p input
     if null xs then Nothing else Just (input', xs)
 
+sep_by :: Parser a -> Parser b -> Parser [b]
+sep_by sep elem = (:) <$> elem <*> many (sep *> elem)
+
 quote_tag :: Parser ParsedValue
 quote_tag = char_parser '@' *> (f <$> stringliteral) <* char_parser '@'
     where stringliteral = (string_parser "noun" <|> string_parser "adjective" <|> string_parser "verb")
@@ -60,10 +63,10 @@ quote_tag = char_parser '@' *> (f <$> stringliteral) <* char_parser '@'
           f _           = undefined
 
 quote_text :: Parser ParsedValue
-quote_text = Text <$> span_parser (\c -> c /= '@')
+quote_text = Text <$> not_null(span_parser (\c -> c /= '@'))
 
-quote_parser :: Parser ParsedValue
-quote_parser = quote_tag <|> quote_text
+quote_parser :: Parser [ParsedValue]
+quote_parser = many (quote_text <|> quote_tag) <|> pure []
 
 main :: IO ()
 main = putStr "yo"
