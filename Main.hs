@@ -53,6 +53,11 @@ not_null (Parser p) = Parser $ \input -> do
 sep_by :: Parser a -> Parser b -> Parser [b]
 sep_by sep elem = (:) <$> elem <*> many (sep *> elem)
 
+parse_file :: FilePath -> Parser a -> IO (Maybe a)
+parse_file filename parser = do
+    input <- readFile filename
+    return (snd <$> run_parser parser input)
+
 quote_tag :: Parser ParsedValue
 quote_tag = char_parser '@' *> (f <$> stringliteral) <* char_parser '@'
     where stringliteral = (string_parser "noun" <|> string_parser "adjective" <|> string_parser "verb")
