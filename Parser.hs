@@ -44,7 +44,7 @@ not_null (Parser p) = Parser $ \input -> do
     if null xs then Nothing else Just (input', xs)
 
 sep_by :: Parser a -> Parser b -> Parser [b]
-sep_by sep elem = (:) <$> elem <*> many (sep *> elem)
+sep_by sep element = (:) <$> element <*> many (sep *> element)
 
 parse_file :: FilePath -> Parser a -> IO (Maybe a)
 parse_file filename parser = do
