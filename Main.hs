@@ -45,16 +45,24 @@ span_parser f = Parser $ \input ->
     let (token, rest) = span f input
     in Just (rest, token)
 
-tag_parser :: Parser ParsedValue
-tag_parser = f <$> (string_parser "noun" <|> string_parser "adjective" <|> string_parser "verb")
+not_null :: Parser [a] -> Parser [a]
+not_null (Parser p) = Parser $ \input -> do
+    (input', xs) <- p input
+    if null xs then Nothing else Just (input', xs)
+
+quote_tag :: Parser ParsedValue
+quote_tag = f <$> (string_parser "noun" <|> string_parser "adjective" <|> string_parser "verb")
     where f "noun"      = Noun
           f "adjective" = Adjective
           f "verb"      = Verb
           -- should never happen
           f _           = undefined
 
+quote_text :: Parser ParsedValue
+quote_text = Text <$> span_parser (\c -> c /= '@')
+
 quote_parser :: Parser ParsedValue
-quote_parser = tag_parser
+quote_parser = quote_tag <|> quote_text
 
 main :: IO ()
 main = putStr "yo"
