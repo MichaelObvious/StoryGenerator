@@ -19,7 +19,7 @@ instance Applicative Parser where
     pure x                      = Parser $ \input -> Just (input, x)
     (Parser p1) <*> (Parser p2) = Parser $ \input -> do
         (input', f)  <- p1 input
-        (input'', a) <- p2 input
+        (input'', a) <- p2 input'
         Just (input'', f a)
 
 char_parser :: Char -> Parser Char
@@ -31,7 +31,7 @@ char_parser c = Parser f
         f [] = Nothing
 
 string_parser :: String -> Parser String
-string_parser str = undefined --sequenceA $ map char_parser str
+string_parser = sequenceA . map char_parser
 
 main :: IO ()
 main = putStr "yo"
