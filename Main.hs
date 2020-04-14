@@ -12,9 +12,10 @@ newtype Parser a = Parser { run_parser :: String -> Maybe (String, a) }
 char_parser :: Char -> Parser Char
 char_parser c = Parser f
     where
-        f input = case input of
-            x:xs | x == c -> Just (xs, c)
-            _             -> Nothing
+        f (x:xs)
+            | x == c    = Just (xs, c)
+            | otherwise = Nothing
+        f [] = Nothing
 
 main :: IO ()
 main = putStr "yo"
