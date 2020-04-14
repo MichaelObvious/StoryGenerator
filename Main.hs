@@ -1,5 +1,7 @@
 module Main where
 
+import Control.Applicative
+
 data ParsedValue
     = Text String
     | Noun
@@ -22,6 +24,11 @@ instance Applicative Parser where
         (input'', a) <- p2 input'
         Just (input'', f a)
 
+instance Alternative Parser where
+    empty                       = Parser $ (const Nothing)
+    (Parser p1) <|> (Parser p2) = Parser $ \input -> do
+        p1 input <|> p2 input
+
 char_parser :: Char -> Parser Char
 char_parser c = Parser f
     where
@@ -32,6 +39,22 @@ char_parser c = Parser f
 
 string_parser :: String -> Parser String
 string_parser = sequenceA . map char_parser
+
+span_parser :: (Char -> Bool) -> Parser String
+span_parser f = Parser $ \input ->
+    let (token, rest) = span f input
+    in Just (rest, token)
+
+tag_parser :: Parser ParsedValue
+tag_parser = f <$> (string_parser "noun" <|> string_parser "adjective" <|> string_parser "verb")
+    where f "noun"      = Noun
+          f "adjective" = Adjective
+          f "verb"      = Verb
+          -- should never happen
+          f _           = undefined
+
+quote_parser :: Parser ParsedValue
+quote_parser = tag_parser
 
 main :: IO ()
 main = putStr "yo"
