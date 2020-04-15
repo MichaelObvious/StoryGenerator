@@ -7,11 +7,8 @@ import DataFileParser
 import Parser
 import TemplateParser
 
-my_random :: Int
-my_random = unsafePerformIO randomIO
-
 pick_one :: [a] -> a
-pick_one ts = ts !! (my_random `mod` length ts)
+pick_one ts = ts !! (unsafePerformIO randomIO `mod` length ts)
 
 gen_story :: Maybe [ConfigData] -> String
 gen_story parsed_data = do
@@ -29,5 +26,5 @@ write_story (ws, (t_vals, story)) = case t_vals of
               TemplateNoun      -> pick_one ns  
               TemplateVerb      -> pick_one vs  
               TemplateAdverb    -> pick_one advs
-              TemplateNumber    -> show $ my_random
+              TemplateNumber    -> show $ (unsafePerformIO randomIO :: Int)
               TemplateText t    -> t

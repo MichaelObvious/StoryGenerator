@@ -1,11 +1,11 @@
 MAIN_FILE = Main.hs
 BIN_DIR   = bin
-OUT_NAME  = quotegenerator.out
+OUT_NAME  = story_generator.out
 FLAGS     = -Wall -Werror
 
 .PHONY: setup run
 
-run: build
+run:
 	@./$(BIN_DIR)/$(OUT_NAME)
 
 build:
@@ -14,6 +14,7 @@ build:
 clean:
 	@rm -rf *.o
 	@rm -rf *.hi
+	@rm -rf bin/*
 
 setup:
 	@mkdir bin
