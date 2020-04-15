@@ -5,7 +5,7 @@ FLAGS     = -Wall -Werror
 
 .PHONY: setup run
 
-run: build clean
+run: build
 	@./$(BIN_DIR)/$(OUT_NAME)
 
 build:
