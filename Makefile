@@ -3,6 +3,8 @@ BIN_DIR   = bin
 OUT_NAME  = quotegenerator.out
 FLAGS     = -Wall -Werror
 
+.PHONY: setup run
+
 run: build clean
 	@./$(BIN_DIR)/$(OUT_NAME)
 
@@ -12,8 +14,6 @@ build:
 clean:
 	@rm -rf *.o
 	@rm -rf *.hi
-
-.PHONY: setup
 
 setup:
 	@mkdir bin

@@ -1,11 +1,14 @@
 module StoryWriter where
 
+import System.Random
+import System.IO.Unsafe
+
 import DataFileParser
 import Parser
 import TemplateParser
 
 pick_one :: [a] -> a
-pick_one ts = ts !! (10 `mod` length ts)
+pick_one ts = ts !! (unsafePerformIO randomIO `mod` length ts)
 
 gen_story :: Maybe [ConfigData] -> String
 gen_story parsed_data = do
