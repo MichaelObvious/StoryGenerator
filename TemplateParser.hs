@@ -12,8 +12,8 @@ data ParsedValue
     deriving (Show, Eq)
 
 template_tag :: Parser ParsedValue
-template_tag = char_parser '@' *> (f <$> stringliteral) <* char_parser '@'
-    where stringliteral = (string_parser "noun" <|> string_parser "adjective" <|> string_parser "verb")
+template_tag = char_parser '@' *> (f <$> tag_literal) <* char_parser '@'
+    where tag_literal   = (string_parser "noun" <|> string_parser "adjective" <|> string_parser "verb")
           f "noun"      = Noun
           f "adjective" = Adjective
           f "verb"      = Verb
@@ -21,7 +21,7 @@ template_tag = char_parser '@' *> (f <$> stringliteral) <* char_parser '@'
           f _           = undefined
 
 template_text :: Parser ParsedValue
-template_text = Text <$> not_null(span_parser (\c -> c /= '@'))
+template_text = Text <$> not_null (span_parser (/= '@'))
 
 template_parser :: Parser [ParsedValue]
 template_parser = many (template_text <|> template_tag) <|> pure []

@@ -1,0 +1,26 @@
+|ADJECTIVES
+cool
+main
+heretic
+
+|NOUNS
+tree
+word
+banana
+
+|VERBS
+kill
+eat
+fall
+chop
+
+|ADVERBS
+slowly
+
+|TEMPLATES
+hello @noun@. how ya doin'?$
+this
+is
+a
+@adjective@
+story.

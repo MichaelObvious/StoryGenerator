@@ -1,7 +1,10 @@
 module Main where
 
 import Parser
-import TemplateParser
+import DataFileParser
+-- import TemplateParser
 
 main :: IO ()
-main = putStr "yo"
+main = do
+    parsed_data <- parse_file "data.txt" data_parser
+    putStrLn $ show parsed_data
