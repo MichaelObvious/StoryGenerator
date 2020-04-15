@@ -1,10 +1,18 @@
 module Main where
 
-import Parser
 import DataFileParser
--- import TemplateParser
+import Parser
+import StoryWriter
+
+gen_story :: Maybe [ConfigData] -> String
+gen_story parsed_data = show $ extract_data ([], [], [], [], []) parsed_data
+
+run :: IO (String)
+run = do
+  parsed_data <- parse_file "data.txt" data_parser
+  return (gen_story parsed_data)
 
 main :: IO ()
 main = do
-    parsed_data <- parse_file "data.txt" data_parser
-    putStrLn $ show $ extract_data ([], [], [], [], []) $ parsed_data
+    story <- run
+    putStrLn story
