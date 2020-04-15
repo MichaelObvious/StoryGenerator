@@ -7,4 +7,4 @@ import DataFileParser
 main :: IO ()
 main = do
     parsed_data <- parse_file "data.txt" data_parser
-    putStrLn $ show parsed_data
+    putStrLn $ show $ extract_data ([], [], [], [], []) $ parsed_data

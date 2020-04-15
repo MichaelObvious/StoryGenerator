@@ -24,9 +24,6 @@ data_field = char_parser '|' *> (tag_literal <*> text)
           text = not_null (span_parser (/= '|'))
           polish = filter (/= '\r')
           discard_null = filter (not . null)
-          {-replace c1 c2 c3
-                | c1 == c3  = c2
-                | otherwise = c3-}
           f tag txt = case tag of "ADJECTIVES" -> Adjectives $ discard_null $ lines $ polish txt
                                   "NOUNS"      -> Nouns      $ discard_null $ lines $ polish txt
                                   "VERBS"      -> Verbs      $ discard_null $ lines $ polish txt
@@ -38,3 +35,14 @@ data_field = char_parser '|' *> (tag_literal <*> text)
 
 data_parser :: Parser [ConfigData]
 data_parser = many data_field <|> pure []
+
+extract_data :: ([String], [String], [String], [String], [String]) -> Maybe [ConfigData] -> ([String], [String], [String], [String], [String])
+extract_data _ Nothing                            = undefined -- oops, the parser has made an oopsie doopsie fuckie wuckie
+extract_data (adjs, ns, vs, advs, tmps) (Just xs) = case xs of
+    []   -> (adjs, ns, vs, advs, tmps)
+    y:ys -> case y of
+        Adjectives adjectives -> extract_data (adjs ++ adjectives, ns, vs, advs, tmps) $ Just ys
+        Nouns nouns           -> extract_data (adjs, ns ++ nouns, vs, advs, tmps)      $ Just ys
+        Verbs verbs           -> extract_data (adjs, ns, vs ++ verbs, advs, tmps)      $ Just ys
+        Adverbs adverbs       -> extract_data (adjs, ns, vs, advs ++ adverbs, tmps)    $ Just ys
+        Templates templates   -> extract_data (adjs, ns, vs, advs, tmps ++ templates)  $ Just ys
