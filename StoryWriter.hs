@@ -37,7 +37,7 @@ write_story (ws, (t_vals, story)) = case t_vals of
               TemplateProperNoun -> pick_one pns
               TemplateVerb       -> pick_one vs  
               TemplateAdverb     -> pick_one advs
-              TemplateNumber     -> show $ (unsafePerformIO randomIO :: Int)
+              TemplateNumber     -> show $ (unsafePerformIO randomIO :: Int) `mod` ((unsafePerformIO randomIO :: Int) `mod` 1000)
               TemplateText t     -> t
           polish = dropWhile (== '\n')
 
