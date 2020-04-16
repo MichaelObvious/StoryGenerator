@@ -43,7 +43,7 @@ write_story (ws, (t_vals, story)) = case t_vals of
               TemplateNumber     -> show $ random_n (10 * (length $ (\(_, xs, _, _, _) -> xs) ws))
               TemplateText t     -> t
           random_n n = (my_random n)
-          polish = dropWhile (== '\n')
+          polish s = "    " ++ (dropWhile (== '\n') s)
 
 gen_story :: Maybe [ConfigData] -> String
 gen_story parsed_data = do

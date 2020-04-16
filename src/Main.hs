@@ -12,4 +12,4 @@ run = do
 main :: IO ()
 main = do
     story <- run
-    putStrLn $ "\n========== RANDOMLY GENERATED STORY ==========\n    " ++ story ++ "\n"
+    putStrLn $ "\n========== RANDOMLY GENERATED STORY ==========\n" ++ story ++ "\n"
