@@ -24,8 +24,11 @@ set_articles s = case run_parser articles s of
     Nothing -> []
     where articles = many (article_parser <|> text_parser) <|> pure []
 
+my_random :: Int -> Int
+my_random n = unsafePerformIO (getStdRandom (randomR (1, n - 1)))
+
 pick_one :: [a] -> a
-pick_one ts = ts !! (unsafePerformIO randomIO `mod` length ts)
+pick_one ts = ts !! (my_random $ length ts)
 
 write_story :: (([String], [String], [String], [String], [String]), ([TemplateValue], String)) -> String
 write_story (ws, (t_vals, story)) = case t_vals of
@@ -37,8 +40,9 @@ write_story (ws, (t_vals, story)) = case t_vals of
               TemplateProperNoun -> pick_one pns
               TemplateVerb       -> pick_one vs  
               TemplateAdverb     -> pick_one advs
-              TemplateNumber     -> show $ (unsafePerformIO randomIO :: Int) `mod` ((unsafePerformIO randomIO :: Int) `mod` 1000)
+              TemplateNumber     -> show $ random_n (10 * (length $ (\(_, xs, _, _, _) -> xs) ws))
               TemplateText t     -> t
+          random_n n = (my_random n)
           polish = dropWhile (== '\n')
 
 gen_story :: Maybe [ConfigData] -> String

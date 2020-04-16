@@ -299,7 +299,7 @@ Suddenly I hear my name called from the @noun@. It's my turn to @verb@. I @verb@
 Finally, after the count of the @noun@s, I finished @number@th. Not bad, better than @propernoun@. With a @noun@ he @verb@ed @adverb@ a judge. At the next tournament I will @verb@!
 $
 VIRTUAL TRAINING
-Welcome @propernoun@ to the Legend of @noun@ tutorial. In this @adjective@ game, your goal will be to @verb@ the @adjective@ princes, in the @noun@ of the @noun@'s tundra and to @noun@ all the enemies that will appear before you, using your @adjective@ skills.
+Welcome @propernoun@ to the Legend of @noun@ tutorial. In this @adjective@ game, your goal will be to @verb@ the @adjective@ princes, in the @noun@ of the @noun@'s tundra and to @verb@ all the enemies that will appear before you, using your @adjective@ skills.
 From now on I will be your thorn in the side, you will not be able to @verb@ without me telling you how. You won't be able to @verb@ without feeling my breath on your neck.
 I @adverb@ see that you have chosen the @noun@ class. This will give you the opportunity to perform the following moves: "@noun@ of the @adjective@ @noun@", the "@noun@'s @noun@", and "@adjective@ @noun@".
 You will also have a natural predisposition in handling @noun@s.
