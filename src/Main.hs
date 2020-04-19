@@ -21,7 +21,7 @@ data Event = Closed
           | GenerateStory
 
 view' :: State -> AppView Gtk.Window Event
-view' s = bin Gtk.Window [ #title := "MichaelObvious's Funny Story Generator", #widthRequest := 640, #heightRequest := 480, #resizable := False, on #deleteEvent (const (True, Closed)) ]
+view' s = bin Gtk.Window [ #title := "MichaelObvious's Funny Story Generator", #widthRequest := 500, #heightRequest := 250, on #deleteEvent (const (True, Closed)) ]
     (container Gtk.Box [ #orientation := Gtk.OrientationVertical ] [ story_label, datafile_form ])
     where story_label = BoxChild defaultBoxChildProperties { expand = True, fill = True }
               $ widget Gtk.Label [ #label := story_text s, #halign := Gtk.AlignCenter, #valign := Gtk.AlignStart, #wrap := True ] 
