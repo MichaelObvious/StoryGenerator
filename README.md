@@ -9,4 +9,4 @@ requirements:
 * ghc
 * cabal
 
-to run the program run `cabal run`
+to run the program run `cabal new-run`
