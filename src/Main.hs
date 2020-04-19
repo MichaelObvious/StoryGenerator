@@ -38,13 +38,5 @@ update' s e = case e of
     GenerateStory     -> Transition s { story_text = pack $ gen_story $ unsafePerformIO (parse_file (unpack $ data_file s) data_parser) } (pure Nothing)
     Closed            -> Exit
 
-{-run_story :: IO (String)
-run_story = do
-  parsed_data <- 
-  return (gen_story parsed_data)-}
-
 main :: IO ()
 main = void $ run App { view = view', update = update', inputs = [], initialState = State { story_text = "", data_file = "data.txt"} }
-{-main = do
-    story <- run
-    putStrLn $ "\n========== RANDOMLY GENERATED STORY ==========\n" ++ story ++ "\n"-}
