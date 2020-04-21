@@ -26,7 +26,9 @@ view' s = bin Gtk.Window [ #title := "MichaelObvious's Funny Story Generator", #
     where story_label = BoxChild defaultBoxChildProperties { expand = True, fill = True }
               $ widget Gtk.Label [ #label := story_text s, #halign := Gtk.AlignCenter, #valign := Gtk.AlignStart, #wrap := True ] 
           datafile_form = container Gtk.Box
-              [ #orientation := Gtk.OrientationHorizontal ] [ datafile_input, generate_button ]
+              [ #orientation := Gtk.OrientationHorizontal ] [ datafile_form_description, datafile_input, generate_button ]
+          datafile_form_description = widget Gtk.Label
+              [ #label := pack "Data file: "]
           datafile_input = widget Gtk.Entry
               [ #text := data_file s, #placeholderText := "data file...", onM #changed (fmap DataFileChanged . Gtk.entryGetText) ]
           generate_button = widget Gtk.Button
