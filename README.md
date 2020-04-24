@@ -1,12 +1,13 @@
 # Story Generator
 
-quote generator written in (vanilla) Haskell
+Story generator written in (vanilla) Haskell
+Video: <https://youtu.be/AkXUTSfG23Q>
 
 ## Running
 
-requirements:
+Requirements:
 
 * ghc
 * cabal
 
-to run the program run `cabal new-run`
+To run the program run `cabal new-run`
