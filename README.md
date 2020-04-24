@@ -1,6 +1,7 @@
 # Story Generator
 
 Story generator written in (vanilla) Haskell
+
 Video: <https://youtu.be/AkXUTSfG23Q>
 
 ## Running
