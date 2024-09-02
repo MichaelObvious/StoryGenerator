@@ -12,7 +12,7 @@ import           GI.Gtk.Declarative
 import           GI.Gtk.Declarative.App.Simple
 import           Parser
 import           System.IO.Unsafe
-import           StoryWriter
+import           StoryWrite
 
 data State = State { story_text :: Text, data_file :: Text }
 
